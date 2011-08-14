@@ -9,6 +9,8 @@ Stable tag: 1.00
 
 Embed Share wil add an embed code to your videos so you can easily share them. You can also add your own custom link to it.
 
+It works for Youtube, Vimeo, Daily motion and other oEmbed supported media. It also support the new iFrame embed code.
+
 == Installation ==
 
 1. Upload share-embed to the /wp-content/plugins/ directory
@@ -21,3 +23,18 @@ Embed Share wil add an embed code to your videos so you can easily share them. Y
 
 Great! I'd love to hear from you.
 Leave your feedback at http://www.codepress.nl/plugins/embed-share/#feedback.
+
+== Screenshots ==
+
+1. The Embed Share button added to a video.
+2. The Embed Code after the button has been clicked.
+3. The Embed Share settings page.
+
+== Changelog ==
+
+= 1.0 =
+
+* Initial release.
+
+
+== Upgrade Notice ==

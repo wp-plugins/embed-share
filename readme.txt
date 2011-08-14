@@ -10,6 +10,7 @@ Stable tag: 1.00
 Embed Share wil add an embed code to your videos so you can easily share them. You can also add your own custom link to it.
 
 Features include:
+
 * It works for Youtube, Vimeo, Daily motion and other oEmbed supported media. 
 * It supports the new iFrame embed code.
 

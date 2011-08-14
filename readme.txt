@@ -20,4 +20,4 @@ Embed Share wil add an embed code to your videos so you can easily share them. Y
 = I have an idea for a great way to improve this plugin =
 
 Great! I'd love to hear from you.
-Leae your feedback at http://www.codepress.nl/plugins/embed-share/#feedback.
+Leave your feedback at http://www.codepress.nl/plugins/embed-share/#feedback.

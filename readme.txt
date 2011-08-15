@@ -9,6 +9,8 @@ Stable tag: 1.00
 
 Embed Share wil add an embed code to your videos so you can easily share them. You can also add your own custom link to it.
 
+Just include the Video URL on it’s own line in a post, like you always would, and WordPress will add the ‘Share Embed’ button which contains the shareable video embed code.
+
 Features include:
 
 * It works for Youtube, Vimeo, Daily motion and other oEmbed supported media. 
@@ -31,7 +33,7 @@ A new Embed Share menu will be available under the Settings menu. All options ca
 
 = I have an idea for a great way to improve this plugin =
 
-Great! I'd love to hear from you.
+Great! We love to hear from you.
 Leave your feedback at http://www.codepress.nl/plugins/embed-share/#feedback.
 
 == Screenshots ==

@@ -114,7 +114,7 @@ function cpes_add_embed_share($return, $url, $data) {
  */
 function cpes_embed_share_rate($links,$file) {
 		if (plugin_basename(__FILE__) == $file) {
-			$links[] = '<a href="http://wordpress.org/extend/plugins/codepress-embed-share/">Rate this plugin</a>';
+			$links[] = '<a href="http://wordpress.org/extend/plugins/embed-share/">Rate this plugin</a>';
 		}
 	return $links;
 }

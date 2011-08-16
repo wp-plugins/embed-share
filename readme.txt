@@ -3,13 +3,11 @@ Contributors: codepress
 Tags: plugins, wordpress, share, embed, oembed, media, youtube, iframe, mobile, iphone, video, webm, h264
 Requires at least: 2.9
 Tested up to: 3.2.1
-Stable tag: 1.00
+Stable tag: 1.01
 
 == Description ==
 
 Embed Share wil add an embed code to your videos so you can easily share them. You can also add your own custom link to it.
-
-Just include the Video URL on it’s own line in a post, like you always would, and WordPress will add the ‘Share Embed’ button which contains the shareable video embed code.
 
 Features include:
 
@@ -23,7 +21,7 @@ Related Links:
 
 == Installation ==
 
-1. Upload share-embed to the /wp-content/plugins/ directory
+1. Upload embed-share to the /wp-content/plugins/ directory
 2. Activate Embed Share through the ‘Plugins’ menu in WordPress
 3. In the page editor, add the URL of a video – such as youtube, videmo or dailymotion – on it’s own line, and WordPress will add the ‘Share Embed’ button which contains the shareable video embed code.
 
@@ -33,7 +31,7 @@ A new Embed Share menu will be available under the Settings menu. All options ca
 
 = I have an idea for a great way to improve this plugin =
 
-Great! We love to hear from you.
+Great! I'd love to hear from you.
 Leave your feedback at http://www.codepress.nl/plugins/embed-share/#feedback.
 
 == Screenshots ==
@@ -44,6 +42,10 @@ Leave your feedback at http://www.codepress.nl/plugins/embed-share/#feedback.
 
 == Changelog ==
 
-= 1.0 =
+= 1.01 =
+
+* Changed custom link markup, so it will center the text directly under the video.
+
+= 1.00 =
 
 * Initial release.

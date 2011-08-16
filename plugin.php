@@ -4,10 +4,11 @@ Plugin Name: Embed Share
 Plugin URI: http://www.codepress.nl/plugins/embed-share/
 Description: Adds an easily shareable embed code to your videos. 
 Author: Tobias Schutter
-Version: 1.00
+Version: 1.01
 Author URI: http://www.codepress.nl
 
 Updates:
+1.01 - Custom Link markup changed
 1.00 - First Version
 
 	Copyright 2011 Tobias Schutter
@@ -31,7 +32,7 @@ Updates:
 if(defined('CPES_VERSION')) return;
 
 // Determine plugin directory
-define( 'CPES_VERSION', '1.00' );
+define( 'CPES_VERSION', '1.01' );
 define( 'CPES_URL', plugin_dir_url(__FILE__) );
 define( 'CPES_PATH', plugin_dir_path(__FILE__) );
 define( 'CPES_BASENAME', plugin_basename( __FILE__ ) );
@@ -93,7 +94,7 @@ function cpes_add_embed_share($return, $url, $data) {
 			}
 			
 			// branding
-			$branding	= "{$use_post}<a href='{$cpes_options['url']}'>{$cpes_options['title']}</a>";
+			$branding	= "<div style=\"width:500px;text-align:center;\">{$use_post}<a href='{$cpes_options['url']}'>{$cpes_options['title']}</a></div>";
 		}
 	}
 	
@@ -104,8 +105,8 @@ function cpes_add_embed_share($return, $url, $data) {
 	$oembed 	= wp_oembed_get($url);
 	
 	// markup
-	$markup = "{$return}<div class='video_embed_share'><a href='#' class='video_embed_share_button'>{$button}</a><div class='video_embed_textarea' style='display: none;'><textarea rows='8'>{$oembed}{$branding}</textarea><div class='video_embed_note'>{$cpes_options['message']}</div></div></div>";
-	
+	$markup = "{$return}<div class='video_embed_share'><a href='#' class='video_embed_share_button'>{$button}</a><div class='video_embed_textarea' style='display: none;'><textarea rows='8'>{$oembed}{$branding}</textarea><div class='video_embed_note'>{$cpes_options['message']}</div></div></div>";	
+
     return $markup;
 }
 

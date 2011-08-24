@@ -42,6 +42,10 @@ Leave your feedback at http://www.codepress.nl/plugins/embed-share/#feedback.
 
 == Changelog ==
 
+= 1.02 =
+
+* Changed custom link markup to <span> to fix a minor issue
+
 = 1.01 =
 
 * Changed custom link markup, so it will center the text directly under the video.

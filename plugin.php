@@ -8,6 +8,7 @@ Version: 1.01
 Author URI: http://www.codepress.nl
 
 Updates:
+1.02 - Minor fix
 1.01 - Custom Link markup changed
 1.00 - First Version
 
@@ -32,7 +33,7 @@ Updates:
 if(defined('CPES_VERSION')) return;
 
 // Determine plugin directory
-define( 'CPES_VERSION', '1.01' );
+define( 'CPES_VERSION', '1.02' );
 define( 'CPES_URL', plugin_dir_url(__FILE__) );
 define( 'CPES_PATH', plugin_dir_path(__FILE__) );
 define( 'CPES_BASENAME', plugin_basename( __FILE__ ) );

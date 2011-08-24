@@ -23,7 +23,7 @@ Related Links:
 
 1. Upload embed-share to the /wp-content/plugins/ directory
 2. Activate Embed Share through the ‘Plugins’ menu in WordPress
-3. In the page editor, add the URL of a video – such as youtube, videmo or dailymotion – on it’s own line, and WordPress will add the ‘Share Embed’ button which contains the shareable video embed code.
+3. In the page editor, add the URL of a video – such as youtube, vimeo or dailymotion – on it’s own line, and WordPress will add the ‘Share Embed’ button which contains the shareable video embed code.
 
 A new Embed Share menu will be available under the Settings menu. All options can be left or changed as you wish.
 

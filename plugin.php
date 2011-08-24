@@ -50,7 +50,7 @@ wp_enqueue_style('frontend-embed-share-css', CPES_URL . 'css/frontend-embed-shar
 
 // Enqueue admin scripts
 function cpes_admin_scripts() {    
-    wp_enqueue_script('admin-embed-share-js', CPES_URL . 'js/admin-embed-share.js');
+    wp_enqueue_script( 'admin-embed-share-js', CPES_URL . 'js/admin-embed-share.js' );
 	wp_enqueue_script( 'postbox' );
 	wp_enqueue_script( 'dashboard' );
 }
@@ -94,7 +94,7 @@ function cpes_add_embed_share($return, $url, $data) {
 			}
 			
 			// branding
-			$branding	= "<div style=\"width:500px;text-align:center;\">{$use_post}<a href='{$cpes_options['url']}'>{$cpes_options['title']}</a></div>";
+			$branding	= "<span style=\"width:500px;text-align:center;display:block\">{$use_post}<a href='{$cpes_options['url']}'>{$cpes_options['title']}</a></span>";
 		}
 	}
 	

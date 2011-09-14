@@ -4,11 +4,11 @@ Plugin Name: Embed Share
 Plugin URI: http://www.codepress.nl/plugins/embed-share/
 Description: Adds an easily shareable embed code to your videos. 
 Author: Tobias Schutter
-Version: 1.01
+Version: 1.10
 Author URI: http://www.codepress.nl
 
 Updates:
-1.02 - Minor fix
+1.10 - Added Social sharing to video's from addThis
 1.01 - Custom Link markup changed
 1.00 - First Version
 
@@ -33,14 +33,13 @@ Updates:
 if(defined('CPES_VERSION')) return;
 
 // Determine plugin directory
-define( 'CPES_VERSION', '1.02' );
+define( 'CPES_VERSION', '1.10' );
 define( 'CPES_URL', plugin_dir_url(__FILE__) );
 define( 'CPES_PATH', plugin_dir_path(__FILE__) );
 define( 'CPES_BASENAME', plugin_basename( __FILE__ ) );
 
 // get options
-global $cpes_options;
-$cpes_options = get_option('cpes_options');
+$options = get_option('cpes_options');
 
 // Dependencies
 require CPES_PATH.'options.php';
@@ -48,6 +47,9 @@ require CPES_PATH.'options.php';
 // Enqueue scripts
 wp_enqueue_script('frontend-embed-share-js', CPES_URL . 'js/frontend-embed-share.js', array('jquery'), CPES_VERSION, false);
 wp_enqueue_style('frontend-embed-share-css', CPES_URL . 'css/frontend-embed-share.css', false, CPES_VERSION, 'all');
+
+if ( $options['use_social'] || $options['more_social'] )
+	wp_enqueue_script('addthis-js', 'http://s7.addthis.com/js/250/addthis_widget.js');
 
 // Enqueue admin scripts
 function cpes_admin_scripts() {    
@@ -61,12 +63,12 @@ add_action('admin_print_scripts', 'cpes_admin_scripts');
  *	Enable iFrame Embed Format
  */
 function cpes_change_embed_format($oembed_providers) {
-	global $cpes_options;
+	$options = get_option('cpes_options');
 	foreach ( $oembed_providers as $mask => $data ) {
 		list( $providerurl, $regex ) = $data;
 		
 		// apply iframe argument
-		$iframe = $cpes_options['use_iframe'] == 'on' ? 1 : 0 ;
+		$iframe = $options['use_iframe'] == 'on' ? 1 : 0 ;
 		$providerurl = "{$providerurl}?iframe={$iframe}&wmode=transparent";
 		
 		// put it back together
@@ -79,34 +81,63 @@ function cpes_change_embed_format($oembed_providers) {
  *	Add Embed Sharing to Video's. With an optional custom link.
  */
 function cpes_add_embed_share($return, $url, $data) {		
-	$cpes_options = get_option('cpes_options');
-		
-	// branding
-	$branding = '';
-	if ( $cpes_options['use_branding'] == 'on' ) {	
-		if ( $cpes_options['title'] ) {
-			
-			// post url			
-			if ( $cpes_options['use_post'] == 'on' ) {
-				global $post;				
-				$prefix 	= $cpes_options['prefix'] ? $cpes_options['prefix'].' ' : '';	
-				$post_link	= get_permalink($post->ID);
-				$use_post 	= "{$prefix}<a href='{$post_link}'>{$post->post_title}</a> {$cpes_options['adjective']} ";
-			}
-			
-			// branding
-			$branding	= "<span style=\"width:500px;text-align:center;display:block\">{$use_post}<a href='{$cpes_options['url']}'>{$cpes_options['title']}</a></span>";
-		}
-	}
-	
-	//button
-	$button = $cpes_options['button'] ? $cpes_options['button'] : __('Share');
+	$options = get_option('cpes_options');
 	
 	// forces usage of iframes for youtube
 	$oembed 	= wp_oembed_get($url);
 	
+	// Use the original embed url to create a unique anchor ID.
+	$unique_id = 'e' . preg_replace('#\W#', '', array_pop( explode('/', $url) ) );
+	
+	// branding
+	$branding = '';
+	if ( $options['use_branding'] == 'on' ) {	
+		if ( $options['title'] ) {
+			
+			// post url			
+			if ( $options['use_post'] == 'on' ) {
+				global $post;				
+				$prefix 	= $options['prefix'] ? $options['prefix'].' ' : '';	
+				$post_link	= get_permalink($post->ID) . "#{$unique_id}";
+				$use_post 	= "{$prefix}<a href='{$post_link}'>{$post->post_title}</a> {$options['adjective']} ";
+			}
+			
+			// branding
+			$branding	= "<span style=\"width:500px;text-align:center;display:block\">{$use_post}<a href='{$options['url']}'>{$options['title']}</a></span>";
+		}
+	}
+	
+	//button
+	$button = $options['button'] ? $options['button'] : __('Share');	
+	
+	// social sharing
+	$social = '';
+	if ( $options['use_social'] ) {
+		foreach ( $options['use_social'] as $service => $checked ) {	
+			$social .= "<a class='addthis_button_{$service}'></a>";		
+		}
+	}	
+	if ( $options['more_social'] ) {
+		$mores = explode( ',', $options['more_social']);
+		foreach ( $mores as $m ) {
+			$m = trim(strip_tags($m));
+			$social .= "<a class='addthis_button_{$m}'></a>";
+		}
+	}	
+	
+	// filter hooks are sexy
+	$social = apply_filters('cpes_social_buttons', $social);
+	
+	if ( $social ) {		
+		// add anchor to link
+		$addthis_url = get_permalink($post->ID) . "#{$unique_id}" ;
+		
+		// use addThis for showing social icons
+		$addthis = "<div class='addthis_toolbox addthis_default_style' addthis:url='{$addthis_url}'>{$social}</div>";
+	}
+	
 	// markup
-	$markup = "{$return}<div class='video_embed_share'><a href='#' class='video_embed_share_button'>{$button}</a><div class='video_embed_textarea' style='display: none;'><textarea rows='8'>{$oembed}{$branding}</textarea><div class='video_embed_note'>{$cpes_options['message']}</div></div></div>";	
+	$markup = "<a name='{$unique_id}'></a>{$return}<div class='video_embed_share'><a href='#' class='video_embed_share_button'>{$button}</a>{$addthis}<div class='video_embed_textarea' style='display: none;'><textarea rows='8'>{$oembed}{$branding}</textarea><div class='video_embed_note'>{$options['message']}</div></div></div>";	
 
     return $markup;
 }
@@ -124,4 +155,33 @@ function cpes_embed_share_rate($links,$file) {
 add_filter('oembed_providers', 'cpes_change_embed_format', 1, true);
 add_filter('embed_oembed_html', 'cpes_add_embed_share', 10, 3); 
 add_filter('plugin_row_meta', 'cpes_embed_share_rate', 10, 2);
+
+/**
+ *	Add Facebook meta property to overwrite the usage of the canonical url ( only applies when it is set )
+ */
+function cpes_head_add_facebook_properties() {	
+	echo '<meta property="og:url" content="'.get_permalink($post->ID).'">';
+}
+add_action('wp_head', 'cpes_head_add_facebook_properties');	
+
+/**
+ *	Eaxmple usage of filters
+ */
+function cpes_social_filter( $anchors ) {	
+	// Fill in your social urls
+	$twitter_url 	= '';
+	$facebook_url 	= '';
+	
+	if ( $twitter_url || $facebook_url ) {
+		$link = get_bloginfo('template_url');	
+		$anchors = "
+			{$anchors}
+			<a href=''><img src='{$facebook_url}/images/facebook.png' alt='' /></a>
+			<a href=''><img src='{$twitter_url}/images/twitter.png' alt='' /></a>
+		";
+	}
+	return $anchors;
+}
+add_filter('cpes_social_buttons', 'cpes_social_filter');
+
 ?>

@@ -19,35 +19,31 @@ function cpes_settings_page() {
 	// define
 	$options = get_option('cpes_options');	
 	
+	$checked = array();
+	
 	// use branding?
-	$checked_branding = '';
+	$checked['branding'] = '';
 	$hide = ' style="display:none"';
 	if ( $options['use_branding'] == 'on' ) {
-		$checked_branding = ' checked="yes"';
+		$checked['branding'] = ' checked="yes"';
 		$hide = ' style="display:block"';
 	}
 	
 	// use post prefix?
-	//$checked_post = $options['use_post'] == 'on' ? ' checked="yes"' : '';	
 	// use post?
-	$checked_post = '';
+	$checked['post'] = '';
 	$hide_post = ' style="display:none"';
 	if ( $options['use_post'] == 'on' ) {		
-		$checked_post = ' checked="yes"';
+		$checked['post'] = ' checked="yes"';
 		$hide_post = ' style="display:row"';
 	}	
 	
 	// embed format
-	$checked_iframe = $options['use_iframe'] == 'on' ? ' checked="yes"' : '';
-
-	/* $embed_formats = array(
-		'iframe'	=> 'iFrame',
-		'object'	=> 'Object'
-	);
-	foreach ( $embed_formats as $fk => $fv ) {
-		$selected = $options['format'] == $fk ? ' selected="selected"' : '' ;
-		$embed_format .= "<option{$selected} value='{$fk}'>{$fv}</option>";
-	} */
+	$checked['iframe'] 		= $options['use_iframe'] == 'on' 	? ' checked="yes"' : '';
+	
+	// add social sharing services
+	// see a complete list at http://www.addthis.com/services/list
+	$services = array (	'email', 'twitter', 'facebook', 'linkedin', 'google_plusone' );
 	
 	// button
 	$button = $options['button'] ? $options['button'] : __('Share');
@@ -86,7 +82,7 @@ function cpes_settings_page() {
 									<tr valign="top">
 										<th scope="row">iFrame Embed Format</th>
 										<td colspan="2">
-											<input type="checkbox" id="cpes_use_iframe" name="cpes_options[use_iframe]"'.$checked_iframe.'>
+											<input type="checkbox" id="cpes_use_iframe" name="cpes_options[use_iframe]"'.$checked['iframe'].'>
 											<label for="cpes_use_iframe">Force the use of the iFrame format for sharing.</label>
 											<p class="description">Youtube, Vimeo and Dailymotion supports iFrame usage, which allows use of the HTML5 video player.</p>
 											<p class="description hidden">( No iframe support for Blip.t, Hulu and Viddler. )</p>
@@ -105,12 +101,12 @@ function cpes_settings_page() {
 								</p>
 							</div>
 						</div>
-						<div id="general-cpes-settings" class="postbox">
+						<div id="customlink-cpes-settings" class="postbox">
 							<div class="handlediv" title="Click to toggle"><br /></div>
 							<h3 class="hndle"><span>Custom Link</span></h3>
 							<div class="inside">						
 								<p>
-									<input type="checkbox" id="cpes_use_branding" name="cpes_options[use_branding]"'.$checked_branding.'>
+									<input type="checkbox" id="cpes_use_branding" name="cpes_options[use_branding]"'.$checked['branding'].'>
 									<label for="cpes_use_branding">Add a custom link to the embed code</label>
 								</p>
 								<table class="form-table" id="embed_branding_fields"'.$hide.'>									
@@ -134,7 +130,7 @@ function cpes_settings_page() {
 									</tr>
 									<tr valign="top">				
 										<td colspan="2">
-											<input type="checkbox" id="cpes_use_post" name="cpes_options[use_post]"'.$checked_post.'>
+											<input type="checkbox" id="cpes_use_post" name="cpes_options[use_post]"'.$checked['post'].'>
 											<label for="cpes_use_post">Add the Post Title and Link to the custom link</label>
 										</td>
 									</tr>
@@ -155,6 +151,42 @@ function cpes_settings_page() {
 									<input type="submit" class="button-primary" value="'.__('Save Changes').'" />
 								</p>
 							</div>
+						</div>';
+
+$socialrows = '';						
+foreach ( $services as $service ) {
+	$checked 	 = $options['use_social'][$service] == 'on' ? ' checked="yes"' : '' ;
+	$stitle 	 = ucfirst(str_replace('_', ' ', $service));
+	$socialrows .= "
+		<tr valign='top'>				
+			<td colspan='2'>
+				<input type='checkbox' id='cpes_use_social_{$service}' name='cpes_options[use_social][{$service}]'{$checked}>
+				<label for='cpes_use_social_{$service}'>Add {$stitle}</label>
+			</td>
+		</tr>";	
+}
+						
+						echo'
+						<div id="socialsharing-cpes-settings" class="postbox">
+							<div class="handlediv" title="Click to toggle"><br /></div>
+							<h3 class="hndle"><span>Social Sharing</span></h3>
+							<div class="inside">
+								<p>This will add a social sharing button from addThis to your video\'s.</p>
+								<table class="form-table" id="embed_social_fields">						
+									'.$socialrows.'	
+									<tr valign="top" id="cpes_options_more_socials">
+										<th scope="row">More social services:</th>
+										<td>											
+											<input style="width:100%" type="text" id="cpes_field_more_socials" name="cpes_options[more_social]" value="'.$options['more_social'].'" />
+											<p class="description">Add more social sharing with comma seperation. Example: print, stumbleupon, tweet. </p>
+											<p class="description">See full list ( +100 ) for all supported social services at <a href="http://www.addthis.com/services/list" target="_blank">addThis full list</a></p>
+										</td>
+									</tr>
+								</table>								
+								<p class="submit">
+									<input type="submit" class="button-primary" value="'.__('Save Changes').'" />
+								</p>
+							</div>
 						</div>
 					</form>
 				</div><!--.meta-box-sortables-->				
@@ -162,20 +194,5 @@ function cpes_settings_page() {
 		</div>
 	</div>
 	';
-}
-
-/**
- * Create a potbox widget
- */
-function postbox($id, $title, $content) {
-?>
-	<div id="<?php echo $id; ?>" class="postbox">
-		<div class="handlediv" title="Click to toggle"><br /></div>
-		<h3 class="hndle"><span><?php echo $title; ?></span></h3>
-		<div class="inside">
-			<?php echo $content; ?>
-		</div>
-	</div>
-<?php
 }
 ?>

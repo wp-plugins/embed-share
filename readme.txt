@@ -3,7 +3,7 @@ Contributors: codepress
 Tags: plugins, wordpress, share, embed, oembed, media, youtube, iframe, mobile, iphone, video, webm, h264
 Requires at least: 2.9
 Tested up to: 3.2.1
-Stable tag: 1.01
+Stable tag: 1.10
 
 == Description ==
 
@@ -13,6 +13,7 @@ Features include:
 
 * It works for Youtube, Vimeo, Daily motion and other oEmbed supported media. 
 * It supports the new iFrame embed code.
+* Also you can add social icons for addThis to your video's
 
 Related Links:
 
@@ -41,6 +42,10 @@ Leave your feedback at http://www.codepress.nl/plugins/embed-share/#feedback.
 3. The Embed Share settings page.
 
 == Changelog ==
+
+= 1.10 =
+
+* Added social sharing for the video's
 
 = 1.02 =
 

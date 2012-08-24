@@ -1,32 +1,26 @@
 <?php
 /*
-Plugin Name: Embed Share
-Plugin URI: http://www.codepress.nl/plugins/embed-share/
-Description: Adds an easily shareable embed code to your videos. 
-Author: Tobias Schutter
-Version: 1.10
-Author URI: http://www.codepress.nl
+Plugin Name: 		Embed Share
+Version: 			1.10
+Description: 		Adds an easily shareable embed code to your videos. 
+Author: 			Tobias Schutter
+Plugin URI: 		http://wordpress.org/extend/plugins/embed-share/
+License:			GPLv2
 
-Updates:
-1.10 - Added Social sharing to video's from addThis
-1.01 - Custom Link markup changed
-1.00 - First Version
+Copyright 2011-2012  Codepress  info@codepress.nl
 
-	Copyright 2011 Tobias Schutter
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as published by
+the Free Software Foundation.
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 */
 
@@ -45,11 +39,14 @@ $options = get_option('cpes_options');
 require CPES_PATH.'options.php';
 
 // Enqueue scripts
-wp_enqueue_script('frontend-embed-share-js', CPES_URL . 'js/frontend-embed-share.js', array('jquery'), CPES_VERSION, false);
-wp_enqueue_style('frontend-embed-share-css', CPES_URL . 'css/frontend-embed-share.css', false, CPES_VERSION, 'all');
-
-if ( $options['use_social'] || $options['more_social'] )
-	wp_enqueue_script('addthis-js', 'http://s7.addthis.com/js/250/addthis_widget.js');
+if ( !is_admin() ) {
+	wp_enqueue_script('frontend-embed-share-js', CPES_URL . 'js/frontend-embed-share.js', array('jquery'), CPES_VERSION, false);
+	wp_enqueue_style('frontend-embed-share-css', CPES_URL . 'css/frontend-embed-share.css', false, CPES_VERSION, 'all');
+	
+	if ( $options['use_social'] || $options['more_social'] ) {
+		wp_enqueue_script('addthis-js', 'http://s7.addthis.com/js/250/addthis_widget.js');
+	}	
+}
 
 // Enqueue admin scripts
 function cpes_admin_scripts() {    

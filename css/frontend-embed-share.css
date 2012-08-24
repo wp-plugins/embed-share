@@ -1,5 +1,7 @@
 .video_embed_share {
-	margin:  -10px 0 15px 0;
+	position: relative;
+	top: -10px;
+	width: 500px;
 }
 .video_embed_textarea textarea {
 	min-height: 100px;
@@ -20,7 +22,7 @@
     cursor: pointer;
     height: 16px;
     line-height: 16px;
-	margin: 5px 0;
+	margin: 0 0 5px;
     overflow: visible;
     padding: 5px 6px;
     vertical-align: middle;
@@ -33,4 +35,13 @@
 .video_embed_note {
 	font-size: 11px;
 	color: #333;
+}
+.addthis_default_style {
+	float: right;
+	width: 400px;
+	margin-top: 6px;
+	overflow: hidden;
+}
+.addthis_default_style a {
+	margin-right: 5px;
 }

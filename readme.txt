@@ -1,9 +1,11 @@
 === Embed Share ===
-Contributors: codepress
+Contributors: tschutter
 Tags: plugins, wordpress, share, embed, oembed, media, youtube, iframe, mobile, iphone, video, webm, h264
 Requires at least: 2.9
 Tested up to: 3.2.1
 Stable tag: 1.10
+
+Embed Share wil add an embed code to your videos so you can easily share them. You can also add your own custom link to it.
 
 == Description ==
 
@@ -15,11 +17,6 @@ Features include:
 * It supports the new iFrame embed code.
 * Also you can add social icons for addThis to your video's
 
-Related Links:
-
-* http://www.codepress.nl/plugins/embed-share/
-
-
 == Installation ==
 
 1. Upload embed-share to the /wp-content/plugins/ directory
@@ -27,13 +24,6 @@ Related Links:
 3. In the page editor, add the URL of a video – such as youtube, vimeo or dailymotion – on it’s own line, and WordPress will add the ‘Share Embed’ button which contains the shareable video embed code.
 
 A new Embed Share menu will be available under the Settings menu. All options can be left or changed as you wish.
-
-== Frequently Asked Questions ==
-
-= I have an idea for a great way to improve this plugin =
-
-Great! I'd love to hear from you.
-Leave your feedback at http://www.codepress.nl/plugins/embed-share/#feedback.
 
 == Screenshots ==
 

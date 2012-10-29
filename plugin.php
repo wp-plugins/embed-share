@@ -7,7 +7,7 @@ Author: 			Tobias Schutter
 Plugin URI: 		http://wordpress.org/extend/plugins/embed-share/
 License:			GPLv2
 
-Copyright 2011-2012  Codepress  info@codepress.nl
+Copyright 2011-2012  Tobias Schutter tobias@codepress.nl
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as published by

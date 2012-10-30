@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 if(defined('CPES_VERSION')) return;
 
 // Determine plugin directory
-define( 'CPES_VERSION', '1.10' );
+define( 'CPES_VERSION', '1.11' );
 define( 'CPES_URL', plugin_dir_url(__FILE__) );
 define( 'CPES_PATH', plugin_dir_path(__FILE__) );
 define( 'CPES_BASENAME', plugin_basename( __FILE__ ) );

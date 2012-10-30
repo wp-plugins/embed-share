@@ -3,7 +3,7 @@ Contributors: tschutter
 Tags: plugins, wordpress, share, embed, oembed, media, youtube, iframe, mobile, iphone, video, webm, h264
 Requires at least: 2.9
 Tested up to: 3.2.1
-Stable tag: 1.10
+Stable tag: 1.11
 
 Embed Share wil add an embed code to your videos so you can easily share them. You can also add your own custom link to it.
 
